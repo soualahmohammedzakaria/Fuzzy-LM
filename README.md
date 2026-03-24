@@ -1,21 +1,55 @@
-# Fuzzy Language Models
+# Fuzzy Language Model
 
-Minimal implementation of an n-gram language model with fuzzy word matching based on Levenshtein distance.
+Small n-gram language model with optional fuzzy matching using Levenshtein distance.
 
-## What This Project Does
+## Project Layout
 
-This lab implements a small language model that:
+The project is now split by responsibility:
 
-- Learns unigram/bigram/trigram... counts from tokenized sentences.
-- Computes conditional probabilities with Lidstone smoothing.
-- Handles unknown words using fuzzy matching (Levenshtein + similarity).
-
-## Quick Run
-
-From the project folder:
-
-```bash
-python fuzzylms.py
+```text
+|-- README.md
+|-- run.py
+|-- run_tests.py
+|-- fuzzylm/
+|   |-- __init__.py
+|   |-- logic.py
+|-- tests/
+	|-- test_fuzzylm.py
 ```
 
-The built-in test functions in `__main__` will execute and print assertions/results.
+Layout notes:
+
+- `fuzzylm/logic.py`: core implementation (`NGram`, `levenshtein`, `distance_similarity`)
+- `tests/test_fuzzylm.py`: unit tests
+- `run.py`: quick demo runner
+- `run_tests.py`: test runner
+
+## Features
+
+- Train unigram, bigram, trigram, ... models from tokenized text.
+- Compute conditional/text log probabilities with Lidstone smoothing.
+- Handle out-of-vocabulary words through fuzzy matching.
+
+## Run Demo
+
+```bash
+python run.py
+```
+
+This trains a bigram model and scores a sample sentence.
+
+## Run Tests
+
+```bash
+python run_tests.py
+```
+
+This executes all tests from the `tests/` folder using `unittest`.
+
+## Import In Your Code
+
+```python
+from fuzzylm.logic import NGram
+
+model = NGram(n=2, alpha=1.0, fuzzy=True)
+```
